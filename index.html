@@ -3,23 +3,576 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="6a97888e-site-verification" content="9b730b15d47bc7c4eab35b5f101dedcb">
-    <title>Neo Black</title>
+    <title>Neo Black | Premium Platform</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            text-align: center;
-            padding: 50px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
-        h1 {
-            color: #f39c12;
+        body {
+            background-color: #0b0b0b;
+            color: #ffffff;
+            padding-bottom: 140px;
+        }
+
+        /* 18+ Disclaimer Overlay */
+        .disclaimer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            padding: 20px;
+        }
+        .disclaimer-box {
+            background: #141414;
+            border: 1px solid #222;
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        .disclaimer-box h2 {
+            color: #ff0055;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        .disclaimer-box p {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .disclaimer-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .btn-enter {
+            background: #ff0055;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .btn-exit {
+            background: #222;
+            color: #aaa;
+            border: 1px solid #333;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+
+        /* Header */
+        header {
+            background-color: #141414;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            gap: 15px;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ff0055;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+        .search-container {
+            flex-grow: 1;
+            max-width: 400px;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            background: #1f1f1f;
+            border: 1px solid #333;
+            padding: 8px 15px;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 0.85rem;
+            outline: none;
+        }
+        .search-input:focus {
+            border-color: #ff0055;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            gap: 10px;
+            padding: 15px 20px;
+            overflow-x: auto;
+            border-bottom: 1px solid #1a1a1a;
+            background: #0e0e0e;
+        }
+        .cat-btn {
+            background-color: #1f1f1f;
+            color: #ccc;
+            border: 1px solid #333;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .cat-btn.active {
+            background-color: #ff0055;
+            color: #fff;
+            border-color: #ff0055;
+        }
+
+        /* Container & Grid */
+        .container {
+            padding: 20px;
+        }
+        .section-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #eee;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: #141414;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #222;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #ff0055;
+        }
+        .thumb {
+            width: 100%;
+            height: 170px;
+            background-color: #222;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            position: relative;
+        }
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 0, 85, 0.85);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+        .play-btn {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 0, 85, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            opacity: 0.85;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .card:hover .play-btn {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        .card-details {
+            padding: 12px;
+        }
+        .card-title {
+            font-size: 0.95rem;
+            color: #fff;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .card-info {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        /* Mobile Bottom Nav Bar */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #141414;
+            border-top: 1px solid #222;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 9990;
+        }
+        .nav-item {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+        .nav-item.active {
+            color: #ff0055;
+        }
+
+        /* Cookie Banner Styling */
+        .cookie-banner {
+            position: fixed;
+            bottom: 50px;
+            left: 0;
+            width: 100%;
+            background: #141414;
+            border-top: 1px solid #333;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            z-index: 9998;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+        }
+        .cookie-text {
+            font-size: 0.8rem;
+            color: #ccc;
+            max-width: 700px;
+        }
+        .cookie-btns {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-cookie-accept {
+            background: #ff0055;
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-cookie-decline {
+            background: #222;
+            color: #aaa;
+            border: 1px solid #444;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        /* Legal Notice Section */
+        .legal-notice {
+            background-color: #111;
+            border: 1px solid #222;
+            padding: 15px;
+            margin: 30px 20px 10px 20px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: #888;
+            line-height: 1.4;
+            text-align: center;
+        }
+        .legal-notice strong {
+            color: #bbb;
+        }
+
+        /* Footer Legal Links */
+        footer {
+            margin-top: 20px;
+            padding: 20px;
+            text-align: center;
+            background-color: #141414;
+            border-top: 1px solid #222;
+        }
+        .footer-links {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 0.8rem;
+        }
+        .footer-text {
+            color: #555;
+            font-size: 0.75rem;
         }
     </style>
 </head>
 <body>
-    <h1>Neo Black Video Aggregator</h1>
-    <p>Welcome! Your site is getting ready for monetization.</p>
+
+    <!-- 18+ Warning Overlay -->
+    <div class="disclaimer-overlay" id="ageModal">
+        <div class="disclaimer-box">
+            <h2>AGE RESTRICTION</h2>
+            <p>This website contains adult content. You must be at least 18 years old or of legal age in your jurisdiction to enter.</p>
+            <div class="disclaimer-btns">
+                <button class="btn-enter" onclick="acceptAge()">I AM 18 OR OLDER</button>
+                <a href="https://www.google.com" class="btn-exit">EXIT</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">NEO BLACK</div>
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search videos..." onkeyup="filterVideos()">
+        </div>
+    </header>
+
+    <!-- Categories -->
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterCategory('all', this)">All</button>
+        <button class="cat-btn" onclick="filterCategory('trending', this)">Trending</button>
+        <button class="cat-btn" onclick="filterCategory('popular', this)">Popular</button>
+        <button class="cat-btn" onclick="filterCategory('new', this)">New</button>
+    </div>
+
+    <!-- Video Section -->
+    <div class="container">
+        <h2 class="section-title" id="sectionTitle">Featured Videos</h2>
+        <div class="grid" id="videoGrid">
+            
+            <!-- Video 1 -->
+            <a href="https://de.pornhub.org/view_video.php?viewkey=68bab2d77ad69" target="_blank" class="card" data-category="trending">
+                <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=11');">
+                    <span class="badge">1080p HD</span>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="card-details">
+                    <div class="card-title">Exclusive Feature 1</div>
+                    <div class="card-info"><span class="view-count">24.5K</span> views • 2 days ago • 12:45 min</div>
+                </div>
+            </a>
+
+            <!-- Video 2 -->
+            <a href="https://de.pornhub.org/view_video.php?viewkey=67d416da1f889" target="_blank" class="card" data-category="popular">
+                <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=12');">
+                    <span class="badge">4K ULTRA</span>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="card-details">
+                    <div class="card-title">Hot Session 2</div>
+                    <div class="card-info"><span class="view-count">18.2K</span> views • 5 hours ago • 15:30 min</div>
+                </div>
+            </a>
+
+            <!-- Video 3 -->
+            <a href="https://de.pornhub.org/view_video.php?viewkey=68c18c37c3106" target="_blank" class="card" data-category="new">
+                <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=13');">
+                    <span class="badge">1080p HD</span>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="card-details">
+                    <div class="card-title">Special Release 3</div>
+                    <div class="card-info"><span class="view-count">9.7K</span> views • 1 day ago • 10:15 min</div>
+                </div>
+            </a>
+
+            <!-- Video 4 -->
+            <a href="https://de.pornhub.org/view_video.php?viewkey=67649f9833313" target="_blank" class="card" data-category="trending">
+                <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=14');">
+                    <span class="badge">4K ULTRA</span>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="card-details">
+                    <div class="card-title">Trending HD Clip 4</div>
+                    <div class="card-info"><span class="view-count">35.4K</span> views • 3 days ago • 18:20 min</div>
+                </div>
+            </a>
+
+            <!-- Video 5 -->
+            <a href="https://de.pornhub.org/view_video.php?viewkey=67506ee34e6a1" target="_blank" class="card" data-category="popular">
+                <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=15');">
+                    <span class="badge">1080p HD</span>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="card-details">
+                    <div class="card-title">Popular Masterpiece 5</div>
+                    <div class="card-info"><span class="view-count">42.1K</span> views • 4 days ago • 22:10 min</div>
+                </div>
+            </a>
+
+            <!-- Video 6 -->
+            <a href="https://de.pornhub.org/view_video.php?viewkey=6783b85d8ff46" target="_blank" class="card" data-category="new">
+                <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=16');">
+                    <span class="badge">HD</span>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="card-details">
+                    <div class="card-title">New Arrival Scene 6</div>
+                    <div class="card-info"><span class="view-count">6.3K</span> views • 12 hours ago • 14:00 min</div>
+                </div>
+            </a>
+
+            <!-- Video 7 -->
+            <a href="https://de.pornhub.org/view_video.php?viewkey=6750bd794da2c" target="_blank" class="card" data-category="trending">
+                <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=17');">
+                    <span class="badge">1080p HD</span>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="card-details">
+                    <div class="card-title">Featured Selection 7</div>
+                    <div class="card-info"><span class="view-count">14.9K</span> views • 2 days ago • 11:50 min</div>
+                </div>
+            </a>
+
+            <!-- Video 8 -->
+            <a href="https://de.pornhub.org/view_video.php?viewkey=6751bc9d6defe" target="_blank" class="card" data-category="popular">
+                <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=18');">
+                    <span class="badge">4K ULTRA</span>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="card-details">
+                    <div class="card-title">Ultimate Choice 8</div>
+                    <div class="card-info"><span class="view-count">29.1K</span> views • 3 days ago • 16:30 min</div>
+                </div>
+            </a>
+
+            <!-- Video 9 -->
+            <a href="https://de.pornhub.org/view_video.php?viewkey=67dc58daf14da" target="_blank" class="card" data-category="new">
+                <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=19');">
+                    <span class="badge">1080p HD</span>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="card-details">
+                    <div class="card-title">Special Edit 9</div>
+                    <div class="card-info"><span class="view-count">11.4K</span> views • 1 day ago • 13:20 min</div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <div class="mobile-nav">
+        <a href="#" class="nav-item active">🏠<br>Home</a>
+        <a href="#" class="nav-item" onclick="filterCategory('trending', document.querySelectorAll('.cat-btn')[1])">🔥<br>Trending</a>
+        <a href="#" class="nav-item" onclick="filterCategory('popular', document.querySelectorAll('.cat-btn')[2])">⭐<br>Popular</a>
+        <a href="#" class="nav-item" onclick="filterCategory('new', document.querySelectorAll('.cat-btn')[3])">✨<br>New</a>
+    </div>
+
+    <!-- Cookies Consent Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-text">
+            We use cookies to enhance your browsing experience and analyze site traffic. By continuing to use this website, you agree to our use of cookies.
+        </div>
+        <div class="cookie-btns">
+            <button class="btn-cookie-accept" onclick="setCookieChoice('accepted')">Accept All</button>
+            <button class="btn-cookie-decline" onclick="setCookieChoice('declined')">Decline</button>
+        </div>
+    </div>
+
+    <!-- Strong Disclaimer Box -->
+    <div class="legal-notice">
+        <strong>DISCLAIMER / TERMS OF SERVICE:</strong> All videos and content on this website are provided by third-party sources and users. We do not host, upload, or own any of the videos displayed on this site. <strong>We take zero responsibility for any content found here; viewers access and view all material entirely at their own risk.</strong> If you find any objectionable content, please use DMCA to report it.
+    </div>
+
+    <!-- Footer Legal -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms of Use</a> | 
+            <a href="#">DMCA / 2257</a>
+        </div>
+        <div class="footer-text">
+            © 2026 Neo Black. All rights reserved. 18+ Adult Entertainment.
+        </div>
+    </footer>
+
+    <script>
+        function acceptAge() {
+            localStorage.setItem('ageVerified', 'true');
+            document.getElementById('ageModal').style.display = 'none';
+        }
+
+        function setCookieChoice(choice) {
+            localStorage.setItem('cookieConsent', choice);
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+
+        window.onload = function() {
+            if (localStorage.getItem('ageVerified') === 'true') {
+                document.getElementById('ageModal').style.display = 'none';
+            }
+            if (localStorage.getItem('cookieConsent')) {
+                document.getElementById('cookieBanner').style.display = 'none';
+            }
+        }
+
+        function filterVideos() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].querySelector('.card-title').innerText.toLowerCase();
+                if (title.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        function filterCategory(cat, btnElement) {
+            let btns = document.querySelectorAll('.cat-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            if(btnElement) btnElement.classList.add('active');
+
+            let cards = document.getElementsByClassName('card');
+            for (let i = 0; i < cards.length; i++) {
+                if (cat === 'all') {
+                    cards[i].style.display = "";
+                } else {
+                    let cardCat = cards[i].getAttribute('data-category');
+                    if (cardCat === cat) {
+                        cards[i].style.display = "";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 </body>
 </html>
