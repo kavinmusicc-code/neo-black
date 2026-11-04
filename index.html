@@ -14,7 +14,7 @@
         body {
             background-color: #0b0b0b;
             color: #ffffff;
-            padding-bottom: 140px; /* Space for mobile nav and cookie banner */
+            padding-bottom: 140px;
         }
 
         /* 18+ Disclaimer Overlay */
@@ -161,10 +161,11 @@
             overflow: hidden;
             border: 1px solid #222;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.2s, border-color 0.2s;
         }
         .card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
+            border-color: #ff0055;
         }
         .thumb {
             width: 100%;
@@ -178,6 +179,19 @@
             color: #fff;
             position: relative;
         }
+        /* Quality Badge (HD/4K) */
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 0, 85, 0.85);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
         .play-btn {
             position: absolute;
             width: 45px;
@@ -189,6 +203,12 @@
             justify-content: center;
             color: #fff;
             font-size: 1.2rem;
+            opacity: 0.85;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .card:hover .play-btn {
+            opacity: 1;
+            transform: scale(1.1);
         }
         .card-details {
             padding: 12px;
@@ -197,6 +217,9 @@
             font-size: 0.95rem;
             color: #fff;
             margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .card-info {
             font-size: 0.8rem;
@@ -417,35 +440,38 @@
         <h2 class="section-title" id="sectionTitle">Featured Videos</h2>
         <div class="grid" id="videoGrid">
             <!-- Sample Video Card 1 -->
-            <div class="card" data-category="trending" onclick="playVideo('https://www.youtube.com/embed/tgbNymZ7vqY')">
+            <div class="card" data-category="trending" onclick="playVideo('https://www.youtube.com/embed/tgbNymZ7vqY', this)">
                 <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=1');">
+                    <span class="badge">1080p HD</span>
                     <div class="play-btn">▶</div>
                 </div>
                 <div class="card-details">
                     <div class="card-title">Sample Embedded Video 1</div>
-                    <div class="card-info">24.5K views • 2 days ago • 05:20 min</div>
+                    <div class="card-info"><span class="view-count">24.5K</span> views • 2 days ago • 05:20 min</div>
                 </div>
             </div>
 
             <!-- Sample Video Card 2 -->
-            <div class="card" data-category="popular" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+            <div class="card" data-category="popular" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ', this)">
                 <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=2');">
+                    <span class="badge">4K ULTRA</span>
                     <div class="play-btn">▶</div>
                 </div>
                 <div class="card-details">
                     <div class="card-title">Sample Embedded Video 2</div>
-                    <div class="card-info">12.1K views • 5 hours ago • 03:30 min</div>
+                    <div class="card-info"><span class="view-count">12.1K</span> views • 5 hours ago • 03:30 min</div>
                 </div>
             </div>
 
             <!-- Sample Video Card 3 -->
-            <div class="card" data-category="new" onclick="playVideo('https://www.youtube.com/embed/tgbNymZ7vqY')">
+            <div class="card" data-category="new" onclick="playVideo('https://www.youtube.com/embed/tgbNymZ7vqY', this)">
                 <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=3');">
+                    <span class="badge">HD</span>
                     <div class="play-btn">▶</div>
                 </div>
                 <div class="card-details">
                     <div class="card-title">Sample Embedded Video 3</div>
-                    <div class="card-info">8.9K views • 1 day ago • 08:15 min</div>
+                    <div class="card-info"><span class="view-count">8.9K</span> views • 1 day ago • 08:15 min</div>
                 </div>
             </div>
         </div>
@@ -521,10 +547,18 @@
             }
         }
 
-        // Video Player Modal Logic
-        function playVideo(embedUrl) {
+        // Video Player Modal Logic with Live View Increment
+        function playVideo(embedUrl, cardElement) {
             document.getElementById('mainPlayer').src = embedUrl;
             document.getElementById('videoModal').style.display = 'flex';
+
+            // Increase view count simulation
+            let viewSpan = cardElement.querySelector('.view-count');
+            if(viewSpan && !cardElement.dataset.viewed) {
+                let currentViews = parseFloat(viewSpan.innerText);
+                viewSpan.innerText = (currentViews + 0.1).toFixed(1) + 'K';
+                cardElement.dataset.viewed = "true"; // Prevent double counting in same session
+            }
         }
 
         function closeVideo() {
