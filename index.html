@@ -14,7 +14,7 @@
         body {
             background-color: #0b0b0b;
             color: #ffffff;
-            padding-bottom: 80px; /* Space for cookie banner */
+            padding-bottom: 140px; /* Space for mobile nav and cookie banner */
         }
 
         /* 18+ Disclaimer Overlay */
@@ -80,7 +80,7 @@
         /* Header */
         header {
             background-color: #141414;
-            padding: 15px 20px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -88,18 +88,32 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            gap: 15px;
         }
         .logo {
             font-size: 1.4rem;
             font-weight: bold;
             color: #ff0055;
             letter-spacing: 1px;
+            white-space: nowrap;
         }
-        .nav-links a {
-            color: #aaa;
-            text-decoration: none;
-            margin-left: 15px;
-            font-size: 0.9rem;
+        .search-container {
+            flex-grow: 1;
+            max-width: 400px;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            background: #1f1f1f;
+            border: 1px solid #333;
+            padding: 8px 15px;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 0.85rem;
+            outline: none;
+        }
+        .search-input:focus {
+            border-color: #ff0055;
         }
 
         /* Categories */
@@ -109,6 +123,7 @@
             padding: 15px 20px;
             overflow-x: auto;
             border-bottom: 1px solid #1a1a1a;
+            background: #0e0e0e;
         }
         .cat-btn {
             background-color: #1f1f1f;
@@ -188,6 +203,26 @@
             color: #777;
         }
 
+        /* Load More Button */
+        .load-more-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto 10px auto;
+            padding: 12px;
+            background: #1f1f1f;
+            color: #fff;
+            border: 1px solid #333;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.2s;
+        }
+        .load-more-btn:hover {
+            background: #ff0055;
+            border-color: #ff0055;
+        }
+
         /* Video Modal Popup */
         .video-modal {
             position: fixed;
@@ -236,15 +271,41 @@
             border: 0;
         }
 
-        /* Cookie Banner Styling */
-        .cookie-banner {
+        /* Mobile Bottom Nav Bar */
+        .mobile-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             background: #141414;
+            border-top: 1px solid #222;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 9990;
+        }
+        .nav-item {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+        .nav-item.active {
+            color: #ff0055;
+        }
+
+        /* Cookie Banner Styling */
+        .cookie-banner {
+            position: fixed;
+            bottom: 50px;
+            left: 0;
+            width: 100%;
+            background: #141414;
             border-top: 1px solid #333;
-            padding: 15px 20px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -254,7 +315,7 @@
             box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
         }
         .cookie-text {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #ccc;
             max-width: 700px;
         }
@@ -266,9 +327,9 @@
             background: #ff0055;
             color: #fff;
             border: none;
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 6px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: bold;
             cursor: pointer;
         }
@@ -276,9 +337,9 @@
             background: #222;
             color: #aaa;
             border: 1px solid #444;
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 6px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             cursor: pointer;
         }
 
@@ -338,26 +399,25 @@
     <!-- Header -->
     <header>
         <div class="logo">NEO BLACK</div>
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Trending</a>
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search videos..." onkeyup="filterVideos()">
         </div>
     </header>
 
     <!-- Categories -->
     <div class="categories">
-        <button class="cat-btn active">All</button>
-        <button class="cat-btn">Trending</button>
-        <button class="cat-btn">Popular</button>
-        <button class="cat-btn">New</button>
+        <button class="cat-btn active" onclick="filterCategory('all', this)">All</button>
+        <button class="cat-btn" onclick="filterCategory('trending', this)">Trending</button>
+        <button class="cat-btn" onclick="filterCategory('popular', this)">Popular</button>
+        <button class="cat-btn" onclick="filterCategory('new', this)">New</button>
     </div>
 
     <!-- Video Section -->
     <div class="container">
-        <h2 class="section-title">Featured Videos</h2>
-        <div class="grid">
+        <h2 class="section-title" id="sectionTitle">Featured Videos</h2>
+        <div class="grid" id="videoGrid">
             <!-- Sample Video Card 1 -->
-            <div class="card" onclick="playVideo('https://www.youtube.com/embed/tgbNymZ7vqY')">
+            <div class="card" data-category="trending" onclick="playVideo('https://www.youtube.com/embed/tgbNymZ7vqY')">
                 <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=1');">
                     <div class="play-btn">▶</div>
                 </div>
@@ -368,7 +428,7 @@
             </div>
 
             <!-- Sample Video Card 2 -->
-            <div class="card" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+            <div class="card" data-category="popular" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
                 <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=2');">
                     <div class="play-btn">▶</div>
                 </div>
@@ -377,7 +437,20 @@
                     <div class="card-info">12.1K views • 5 hours ago • 03:30 min</div>
                 </div>
             </div>
+
+            <!-- Sample Video Card 3 -->
+            <div class="card" data-category="new" onclick="playVideo('https://www.youtube.com/embed/tgbNymZ7vqY')">
+                <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=3');">
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="card-details">
+                    <div class="card-title">Sample Embedded Video 3</div>
+                    <div class="card-info">8.9K views • 1 day ago • 08:15 min</div>
+                </div>
+            </div>
         </div>
+
+        <button class="load-more-btn" onclick="alert('No more videos to load right now!')">Load More Videos</button>
     </div>
 
     <!-- Video Player Popup Modal -->
@@ -390,7 +463,15 @@
         </div>
     </div>
 
-    <!-- Cookie Consent Banner -->
+    <!-- Mobile Bottom Navigation Bar -->
+    <div class="mobile-nav">
+        <a href="#" class="nav-item active">🏠<br>Home</a>
+        <a href="#" class="nav-item" onclick="filterCategory('trending', document.querySelectorAll('.cat-btn')[1])">🔥<br>Trending</a>
+        <a href="#" class="nav-item" onclick="filterCategory('popular', document.querySelectorAll('.cat-btn')[2])">⭐<br>Popular</a>
+        <a href="#" class="nav-item" onclick="filterCategory('new', document.querySelectorAll('.cat-btn')[3])">✨<br>New</a>
+    </div>
+
+    <!-- Cookies Consent Banner -->
     <div class="cookie-banner" id="cookieBanner">
         <div class="cookie-text">
             We use cookies to enhance your browsing experience and analyze site traffic. By continuing to use this website, you agree to our use of cookies.
@@ -432,12 +513,9 @@
         }
 
         window.onload = function() {
-            // Check Age
             if (localStorage.getItem('ageVerified') === 'true') {
                 document.getElementById('ageModal').style.display = 'none';
             }
-
-            // Check Cookie Choice
             if (localStorage.getItem('cookieConsent')) {
                 document.getElementById('cookieBanner').style.display = 'none';
             }
@@ -452,6 +530,42 @@
         function closeVideo() {
             document.getElementById('mainPlayer').src = '';
             document.getElementById('videoModal').style.display = 'none';
+        }
+
+        // Search Logic
+        function filterVideos() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].querySelector('.card-title').innerText.toLowerCase();
+                if (title.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        // Category Filter Logic
+        function filterCategory(cat, btnElement) {
+            let btns = document.querySelectorAll('.cat-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            if(btnElement) btnElement.classList.add('active');
+
+            let cards = document.getElementsByClassName('card');
+            for (let i = 0; i < cards.length; i++) {
+                if (cat === 'all') {
+                    cards[i].style.display = "";
+                } else {
+                    let cardCat = cards[i].getAttribute('data-category');
+                    if (cardCat === cat) {
+                        cards[i].style.display = "";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
+            }
         }
     </script>
 </body>
