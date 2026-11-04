@@ -17,18 +17,26 @@
             padding-bottom: 20px;
         }
 
-        /* 18+ Disclaimer Modal */
+        /* Pure CSS Toggle Trick for Warning Popup */
+        #age-check {
+            display: none;
+        }
+        #age-check:checked ~ .disclaimer-overlay {
+            display: none;
+        }
+
+        /* 18+ Disclaimer Overlay */
         .disclaimer-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.98);
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 99999;
             padding: 20px;
         }
         .disclaimer-box {
@@ -60,19 +68,22 @@
             background: #ff0055;
             color: #fff;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 22px;
             border-radius: 6px;
             font-weight: bold;
+            font-size: 0.9rem;
             cursor: pointer;
+            display: inline-block;
         }
         .btn-exit {
             background: #222;
             color: #aaa;
             border: 1px solid #333;
-            padding: 10px 20px;
+            padding: 12px 22px;
             border-radius: 6px;
             text-decoration: none;
             font-size: 0.9rem;
+            display: inline-block;
         }
 
         /* Header */
@@ -204,13 +215,16 @@
 </head>
 <body>
 
-    <!-- 18+ Warning Modal -->
-    <div class="disclaimer-overlay" id="warningModal">
+    <!-- Hidden Checkbox Switch -->
+    <input type="checkbox" id="age-check">
+
+    <!-- 18+ Warning Overlay -->
+    <div class="disclaimer-overlay">
         <div class="disclaimer-box">
             <h2>AGE RESTRICTION</h2>
             <p>This website contains adult content. You must be at least 18 years old or of legal age in your jurisdiction to enter.</p>
             <div class="disclaimer-btns">
-                <button class="btn-enter" onclick="acceptAge()">I AM 18 OR OLDER</button>
+                <label for="age-check" class="btn-enter">I AM 18 OR OLDER</label>
                 <a href="https://www.google.com" class="btn-exit">EXIT</a>
             </div>
         </div>
@@ -226,28 +240,4 @@
     </header>
 
     <!-- Categories -->
-    <div class="categories">
-        <button class="cat-btn active">All</button>
-        <button class="cat-btn">Trending</button>
-        <button class="cat-btn">Popular</button>
-        <button class="cat-btn">New</button>
-    </div>
-
-    <!-- Video Section -->
-    <div class="container">
-        <h2 class="section-title">Featured Videos</h2>
-        <div class="grid">
-            <div class="card">
-                <div class="thumb">
-                    <div class="play-btn">▶</div>
-                    Preview Thumbnail
-                </div>
-                <div class="card-details">
-                    <div class="card-title">Sample Video Title 1</div>
-                    <div class="card-info">1080p • 12:45 min</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="thumb">
-                    <div class="play-
+    <div
