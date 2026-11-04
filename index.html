@@ -287,13 +287,15 @@
     </footer>
 
     <script>
-        if (localStorage.getItem('ageVerified') === 'true') {
-            document.getElementById('ageModal').style.display = 'none';
-        }
-
         function acceptAge() {
             localStorage.setItem('ageVerified', 'true');
             document.getElementById('ageModal').style.display = 'none';
+        }
+
+        window.onload = function() {
+            if (localStorage.getItem('ageVerified') === 'true') {
+                document.getElementById('ageModal').style.display = 'none';
+            }
         }
     </script>
 </body>
