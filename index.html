@@ -14,8 +14,68 @@
         body {
             background-color: #0b0b0b;
             color: #ffffff;
-            padding-bottom: 40px;
+            padding-bottom: 20px;
         }
+
+        /* 18+ Disclaimer Modal */
+        .disclaimer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .disclaimer-box {
+            background: #141414;
+            border: 1px solid #222;
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        .disclaimer-box h2 {
+            color: #ff0055;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        .disclaimer-box p {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .disclaimer-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .btn-enter {
+            background: #ff0055;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-exit {
+            background: #222;
+            color: #aaa;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        /* Header */
         header {
             background-color: #141414;
             padding: 15px 20px;
@@ -39,6 +99,8 @@
             margin-left: 15px;
             font-size: 0.9rem;
         }
+
+        /* Categories */
         .categories {
             display: flex;
             gap: 10px;
@@ -60,6 +122,8 @@
             color: #fff;
             border-color: #ff0055;
         }
+
+        /* Container & Grid */
         .container {
             padding: 20px;
         }
@@ -114,10 +178,45 @@
             font-size: 0.8rem;
             color: #777;
         }
+
+        /* Footer Legal Links */
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            text-align: center;
+            background-color: #141414;
+            border-top: 1px solid #222;
+        }
+        .footer-links {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 0.8rem;
+        }
+        .footer-text {
+            color: #555;
+            font-size: 0.75rem;
+        }
     </style>
 </head>
 <body>
 
+    <!-- 18+ Warning Modal -->
+    <div class="disclaimer-overlay" id="warningModal">
+        <div class="disclaimer-box">
+            <h2>AGE RESTRICTION</h2>
+            <p>This website contains adult content. You must be at least 18 years old or of legal age in your jurisdiction to enter.</p>
+            <div class="disclaimer-btns">
+                <button class="btn-enter" onclick="acceptAge()">I AM 18 OR OLDER</button>
+                <a href="https://www.google.com" class="btn-exit">EXIT</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
     <header>
         <div class="logo">NEO BLACK</div>
         <div class="nav-links">
@@ -126,6 +225,7 @@
         </div>
     </header>
 
+    <!-- Categories -->
     <div class="categories">
         <button class="cat-btn active">All</button>
         <button class="cat-btn">Trending</button>
@@ -133,13 +233,14 @@
         <button class="cat-btn">New</button>
     </div>
 
+    <!-- Video Section -->
     <div class="container">
-        <h2 class="section-title">Latest Videos</h2>
+        <h2 class="section-title">Featured Videos</h2>
         <div class="grid">
             <div class="card">
                 <div class="thumb">
                     <div class="play-btn">▶</div>
-                    Thumbnail Here
+                    Preview Thumbnail
                 </div>
                 <div class="card-details">
                     <div class="card-title">Sample Video Title 1</div>
@@ -149,16 +250,4 @@
 
             <div class="card">
                 <div class="thumb">
-                    <div class="play-btn">▶</div>
-                    Thumbnail Here
-                </div>
-                <div class="card-details">
-                    <div class="card-title">Sample Video Title 2</div>
-                    <div class="card-info">4K • 08:30 min</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</body>
-</html>
+                    <div class="play-
