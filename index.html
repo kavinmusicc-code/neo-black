@@ -245,4 +245,299 @@
             background: #141414;
             border-radius: 10px;
             overflow: hidden;
-            position:
+            position: relative;
+            border: 1px solid #333;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #fff;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .player-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
+        .player-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Mobile Bottom Nav Bar */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #141414;
+            border-top: 1px solid #222;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 9990;
+        }
+        .nav-item {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+        .nav-item.active {
+            color: #ff0055;
+        }
+
+        /* Cookie Banner Styling */
+        .cookie-banner {
+            position: fixed;
+            bottom: 50px;
+            left: 0;
+            width: 100%;
+            background: #141414;
+            border-top: 1px solid #333;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            z-index: 9998;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+        }
+        .cookie-text {
+            font-size: 0.8rem;
+            color: #ccc;
+            max-width: 700px;
+        }
+        .cookie-btns {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-cookie-accept {
+            background: #ff0055;
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .btn-cookie-decline {
+            background: #222;
+            color: #aaa;
+            border: 1px solid #444;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        /* Legal Notice Section */
+        .legal-notice {
+            background-color: #111;
+            border: 1px solid #222;
+            padding: 15px;
+            margin: 30px 20px 10px 20px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: #888;
+            line-height: 1.4;
+            text-align: center;
+        }
+        .legal-notice strong {
+            color: #bbb;
+        }
+
+        /* Footer Legal Links */
+        footer {
+            margin-top: 20px;
+            padding: 20px;
+            text-align: center;
+            background-color: #141414;
+            border-top: 1px solid #222;
+        }
+        .footer-links {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 0.8rem;
+        }
+        .footer-text {
+            color: #555;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 18+ Warning Overlay -->
+    <div class="disclaimer-overlay" id="ageModal">
+        <div class="disclaimer-box">
+            <h2>AGE RESTRICTION</h2>
+            <p>This website contains adult content. You must be at least 18 years old or of legal age in your jurisdiction to enter.</p>
+            <div class="disclaimer-btns">
+                <button class="btn-enter" onclick="acceptAge()">I AM 18 OR OLDER</button>
+                <a href="https://www.google.com" class="btn-exit">EXIT</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">NEO BLACK</div>
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search videos..." onkeyup="filterVideos()">
+        </div>
+    </header>
+
+    <!-- Categories -->
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterCategory('all', this)">All</button>
+        <button class="cat-btn" onclick="filterCategory('trending', this)">Trending</button>
+        <button class="cat-btn" onclick="filterCategory('popular', this)">Popular</button>
+        <button class="cat-btn" onclick="filterCategory('new', this)">New</button>
+    </div>
+
+    <!-- Video Section -->
+    <div class="container">
+        <h2 class="section-title" id="sectionTitle">Featured Videos</h2>
+        <div class="grid" id="videoGrid">
+            <!-- यहाँ से सारे पुराने सैंपल हटा दिए गए हैं। अब आप अपने नए वीडियो कार्ड जोड़ सकते हैं। -->
+        </div>
+    </div>
+
+    <!-- Video Player Popup Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeVideo()">&times;</span>
+            <div class="player-container">
+                <iframe id="mainPlayer" src="" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <div class="mobile-nav">
+        <a href="#" class="nav-item active">🏠<br>Home</a>
+        <a href="#" class="nav-item" onclick="filterCategory('trending', document.querySelectorAll('.cat-btn')[1])">🔥<br>Trending</a>
+        <a href="#" class="nav-item" onclick="filterCategory('popular', document.querySelectorAll('.cat-btn')[2])">⭐<br>Popular</a>
+        <a href="#" class="nav-item" onclick="filterCategory('new', document.querySelectorAll('.cat-btn')[3])">✨<br>New</a>
+    </div>
+
+    <!-- Cookies Consent Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-text">
+            We use cookies to enhance your browsing experience and analyze site traffic. By continuing to use this website, you agree to our use of cookies.
+        </div>
+        <div class="cookie-btns">
+            <button class="btn-cookie-accept" onclick="setCookieChoice('accepted')">Accept All</button>
+            <button class="btn-cookie-decline" onclick="setCookieChoice('declined')">Decline</button>
+        </div>
+    </div>
+
+    <!-- Strong Disclaimer Box -->
+    <div class="legal-notice">
+        <strong>DISCLAIMER / TERMS OF SERVICE:</strong> All videos and content on this website are provided by third-party sources and users. We do not host, upload, or own any of the videos displayed on this site. <strong>We take zero responsibility for any content found here; viewers access and view all material entirely at their own risk.</strong> If you find any objectionable content, please use DMCA to report it.
+    </div>
+
+    <!-- Footer Legal -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms of Use</a> | 
+            <a href="#">DMCA / 2257</a>
+        </div>
+        <div class="footer-text">
+            © 2026 Neo Black. All rights reserved. 18+ Adult Entertainment.
+        </div>
+    </footer>
+
+    <script>
+        function acceptAge() {
+            localStorage.setItem('ageVerified', 'true');
+            document.getElementById('ageModal').style.display = 'none';
+        }
+
+        function setCookieChoice(choice) {
+            localStorage.setItem('cookieConsent', choice);
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+
+        window.onload = function() {
+            if (localStorage.getItem('ageVerified') === 'true') {
+                document.getElementById('ageModal').style.display = 'none';
+            }
+            if (localStorage.getItem('cookieConsent')) {
+                document.getElementById('cookieBanner').style.display = 'none';
+            }
+        }
+
+        function playVideo(embedUrl, cardElement) {
+            document.getElementById('mainPlayer').src = embedUrl;
+            document.getElementById('videoModal').style.display = 'flex';
+
+            let viewSpan = cardElement.querySelector('.view-count');
+            if(viewSpan && !cardElement.dataset.viewed) {
+                let currentViews = parseFloat(viewSpan.innerText);
+                viewSpan.innerText = (currentViews + 0.1).toFixed(1) + 'K';
+                cardElement.dataset.viewed = "true";
+            }
+        }
+
+        function closeVideo() {
+            document.getElementById('mainPlayer').src = '';
+            document.getElementById('videoModal').style.display = 'none';
+        }
+
+        function filterVideos() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let title = cards[i].querySelector('.card-title').innerText.toLowerCase();
+                if (title.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        function filterCategory(cat, btnElement) {
+            let btns = document.querySelectorAll('.cat-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            if(btnElement) btnElement.classList.add('active');
+
+            let cards = document.getElementsByClassName('card');
+            for (let i = 0; i < cards.length; i++) {
+                if (cat === 'all') {
+                    cards[i].style.display = "";
+                } else {
+                    let cardCat = cards[i].getAttribute('data-category');
+                    if (cardCat === cat) {
+                        cards[i].style.display = "";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
