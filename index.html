@@ -179,7 +179,7 @@
             color: #fff;
             position: relative;
         }
-        /* Quality Badge (HD/4K) */
+        /* Quality Badge */
         .badge {
             position: absolute;
             top: 10px;
@@ -439,41 +439,91 @@
     <div class="container">
         <h2 class="section-title" id="sectionTitle">Featured Videos</h2>
         <div class="grid" id="videoGrid">
-            <!-- Sample Video Card 1 -->
-            <div class="card" data-category="trending" onclick="playVideo('https://www.youtube.com/embed/tgbNymZ7vqY', this)">
+            
+            <!-- Video 1 -->
+            <div class="card" data-category="trending" onclick="playVideo('https://www.pornhub.org/embed/68bab2d77ad69', this)">
                 <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=1');">
                     <span class="badge">1080p HD</span>
                     <div class="play-btn">▶</div>
                 </div>
                 <div class="card-details">
-                    <div class="card-title">Sample Embedded Video 1</div>
-                    <div class="card-info"><span class="view-count">24.5K</span> views • 2 days ago • 05:20 min</div>
+                    <div class="card-title">Premium Exclusive Feature 1</div>
+                    <div class="card-info"><span class="view-count">24.5K</span> views • 2 days ago • 12:45 min</div>
                 </div>
             </div>
 
-            <!-- Sample Video Card 2 -->
-            <div class="card" data-category="popular" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ', this)">
+            <!-- Video 2 -->
+            <div class="card" data-category="popular" onclick="playVideo('https://www.pornhub.org/embed/6931f8ac8d021', this)">
                 <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=2');">
                     <span class="badge">4K ULTRA</span>
                     <div class="play-btn">▶</div>
                 </div>
                 <div class="card-details">
-                    <div class="card-title">Sample Embedded Video 2</div>
-                    <div class="card-info"><span class="view-count">12.1K</span> views • 5 hours ago • 03:30 min</div>
+                    <div class="card-title">Exclusive Hot Session 2</div>
+                    <div class="card-info"><span class="view-count">18.2K</span> views • 5 hours ago • 15:30 min</div>
                 </div>
             </div>
 
-            <!-- Sample Video Card 3 -->
-            <div class="card" data-category="new" onclick="playVideo('https://www.youtube.com/embed/tgbNymZ7vqY', this)">
+            <!-- Video 3 -->
+            <div class="card" data-category="new" onclick="playVideo('https://www.pornhub.org/embed/6a10ab0541632', this)">
                 <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=3');">
+                    <span class="badge">1080p HD</span>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="card-details">
+                    <div class="card-title">Special Release Volume 3</div>
+                    <div class="card-info"><span class="view-count">9.7K</span> views • 1 day ago • 10:15 min</div>
+                </div>
+            </div>
+
+            <!-- Video 4 -->
+            <div class="card" data-category="trending" onclick="playVideo('https://www.pornhub.org/embed/6907e342aa256', this)">
+                <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=4');">
+                    <span class="badge">4K ULTRA</span>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="card-details">
+                    <div class="card-title">Trending HD Clip 4</div>
+                    <div class="card-info"><span class="view-count">35.4K</span> views • 3 days ago • 18:20 min</div>
+                </div>
+            </div>
+
+            <!-- Video 5 -->
+            <div class="card" data-category="popular" onclick="playVideo('https://www.pornhub.org/embed/68fe02ab23e2e', this)">
+                <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=5');">
+                    <span class="badge">1080p HD</span>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="card-details">
+                    <div class="card-title">Popular Masterpiece 5</div>
+                    <div class="card-info"><span class="view-count">42.1K</span> views • 4 days ago • 22:10 min</div>
+                </div>
+            </div>
+
+            <!-- Video 6 -->
+            <div class="card" data-category="new" onclick="playVideo('https://www.pornhub.org/embed/68f4cf8f52ff6', this)">
+                <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=6');">
                     <span class="badge">HD</span>
                     <div class="play-btn">▶</div>
                 </div>
                 <div class="card-details">
-                    <div class="card-title">Sample Embedded Video 3</div>
-                    <div class="card-info"><span class="view-count">8.9K</span> views • 1 day ago • 08:15 min</div>
+                    <div class="card-title">New Arrival Scene 6</div>
+                    <div class="card-info"><span class="view-count">6.3K</span> views • 12 hours ago • 14:00 min</div>
                 </div>
             </div>
+
+            <!-- Video 7 -->
+            <div class="card" data-category="trending" onclick="playVideo('https://www.pornhub.org/embed/68d57fb42b11a', this)">
+                <div class="thumb" style="background-image: url('https://picsum.photos/400/225?random=7');">
+                    <span class="badge">1080p HD</span>
+                    <div class="play-btn">▶</div>
+                </div>
+                <div class="card-details">
+                    <div class="card-title">Featured Selection 7</div>
+                    <div class="card-info"><span class="view-count">14.9K</span> views • 2 days ago • 11:50 min</div>
+                </div>
+            </div>
+
         </div>
 
         <button class="load-more-btn" onclick="alert('No more videos to load right now!')">Load More Videos</button>
@@ -552,12 +602,11 @@
             document.getElementById('mainPlayer').src = embedUrl;
             document.getElementById('videoModal').style.display = 'flex';
 
-            // Increase view count simulation
             let viewSpan = cardElement.querySelector('.view-count');
             if(viewSpan && !cardElement.dataset.viewed) {
                 let currentViews = parseFloat(viewSpan.innerText);
                 viewSpan.innerText = (currentViews + 0.1).toFixed(1) + 'K';
-                cardElement.dataset.viewed = "true"; // Prevent double counting in same session
+                cardElement.dataset.viewed = "true";
             }
         }
 
