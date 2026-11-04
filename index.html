@@ -181,9 +181,25 @@
             color: #777;
         }
 
+        /* Legal Notice Section */
+        .legal-notice {
+            background-color: #111;
+            border: 1px solid #222;
+            padding: 15px;
+            margin: 30px 20px 10px 20px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: #888;
+            line-height: 1.4;
+            text-align: center;
+        }
+        .legal-notice strong {
+            color: #bbb;
+        }
+
         /* Footer Legal Links */
         footer {
-            margin-top: 40px;
+            margin-top: 20px;
             padding: 20px;
             text-align: center;
             background-color: #141414;
@@ -242,32 +258,26 @@
             <div class="card">
                 <div class="thumb">
                     <div class="play-btn">▶</div>
-                    Preview Thumbnail
+                    Coming Soon
                 </div>
                 <div class="card-details">
-                    <div class="card-title">Sample Video Title 1</div>
-                    <div class="card-info">1080p • 12:45 min</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="thumb">
-                    <div class="play-btn">▶</div>
-                    Preview Thumbnail
-                </div>
-                <div class="card-details">
-                    <div class="card-title">Sample Video Title 2</div>
-                    <div class="card-info">4K • 08:30 min</div>
+                    <div class="card-title">Setup in Progress</div>
+                    <div class="card-info">1080p • 00:00 min</div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Strong Disclaimer Box -->
+    <div class="legal-notice">
+        <strong>DISCLAIMER / TERMS OF SERVICE:</strong> All videos and content on this website are provided by third-party sources and users. We do not host, upload, or own any of the videos displayed on this site. <strong>We take zero responsibility for any content found here; viewers access and view all material entirely at their own risk.</strong> If you find any objectionable content, please use DMCA to report it.
     </div>
 
     <!-- Footer Legal -->
     <footer>
         <div class="footer-links">
             <a href="#">Privacy Policy</a> | 
-            <a href="#">Terms of Service</a> | 
+            <a href="#">Terms of Use</a> | 
             <a href="#">DMCA / 2257</a>
         </div>
         <div class="footer-text">
@@ -276,7 +286,6 @@
     </footer>
 
     <script>
-        // Check if user already verified age before
         if (localStorage.getItem('ageVerified') === 'true') {
             document.getElementById('ageModal').style.display = 'none';
         }
